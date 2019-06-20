@@ -17,6 +17,8 @@ public class DownloadOnlyStart extends Start {
 		try {
 			App.instagram();
 		} catch (Exception e) {
+			System.out.println("An error has occured, exiting ("+e.getMessage()+")");
+			return;
 		}
 		final DownloadFromDatabase down = new DownloadFromDatabase();
 		down.start();

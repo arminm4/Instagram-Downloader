@@ -43,7 +43,7 @@ public class CommandControl {
 	/**
 	 * Method to execute commands based o user input
 	 * 
-	 * @param comm
+	 * @param comm User input
 	 */
 	public void execute(String comm) {
 		for (Command c : commands) {

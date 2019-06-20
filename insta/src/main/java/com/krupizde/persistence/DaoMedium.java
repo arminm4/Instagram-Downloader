@@ -139,7 +139,6 @@ public class DaoMedium {
 	 * download time (were not downoaded yet).
 	 * 
 	 * @param limit  Limit of returned mediums
-	 * @param offset Offset from which to return mediums
 	 * @return List of loaded mediums
 	 * @throws SQLException
 	 */

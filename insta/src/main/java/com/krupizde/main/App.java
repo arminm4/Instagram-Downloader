@@ -32,7 +32,7 @@ public class App {
 	}
 	/** 
 	 * Maint method of this Facade. Based on input parameters
-	 * @param args
+	 * @param args User input arguments
 	 */
 	public void run(final String[] args) {
 		StartsManager manager = StartsManager.getManager();
@@ -46,7 +46,7 @@ public class App {
 	/**
 	 * Method works like a singleton for Instagram connection. First configuration file is loaded and database connection is opened.
 	 * If any of these fails, application exits with exit code 2.
-	 * @return 
+	 * @return Only one instance of Instagram4j class
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
@@ -97,7 +97,7 @@ public class App {
 			if (!saves.exists()) {
 				saves.mkdir();
 			}
-			savePath = "saves";
+			savePath = saves.getAbsolutePath();
 		}
 		if (namesPath.isEmpty()) {
 			System.err.println("Names path not set, looking for local file");

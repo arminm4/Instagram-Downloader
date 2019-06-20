@@ -18,7 +18,7 @@ public class Main {
 	 * Method sets shutdown hook to commit changes to database and close connection
 	 * and starts the application TUI facade.
 	 * 
-	 * @param args
+	 * @param args User input args
 	 */
 	public static void main(final String[] args) {
 		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {

@@ -40,7 +40,7 @@ public class StartsManager {
 
 	/**
 	 * Method that executes starting method from given phrase
-	 * @param phrase
+	 * @param phrase Input user parameter
 	 */
 	public void start(String phrase) {
 		for (Start s : starts) {

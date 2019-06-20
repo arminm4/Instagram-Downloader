@@ -33,7 +33,7 @@ public class FileIOWorker {
 	/**
 	 * Method that return only one instance of FileIOWorker for singleton
 	 * 
-	 * @return
+	 * @return Only one instance of this class
 	 */
 	public static FileIOWorker getInstance() {
 		if (FileIOWorker.loader == null) {
@@ -41,14 +41,14 @@ public class FileIOWorker {
 		}
 		return FileIOWorker.loader;
 	}
-	
+
 	/**
 	 * Method loads file set in configuration file (or default one) and loads
-	 * profiles line by line or in some cases in format \<PersonName\>
-	 * \<profileName\>, \<profileName\>, ... ,\<profileName\>\n
+	 * profiles line by line or in some cases in format <br>
+	 * 'PersonName' 'profileName', 'profileName', ... ,'profileName'\n
 	 * 
 	 * @param fileDest Path to file from which to load profiles
-	 * @return Option list of string each of them represents profile or person and
+	 * @return Optional list of string each of them represents profile or person and
 	 *         it's profiles
 	 */
 	public Optional<List<String>> namesByLine(final String fileDest) {

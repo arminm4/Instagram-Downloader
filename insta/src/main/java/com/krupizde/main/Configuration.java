@@ -26,7 +26,7 @@ public class Configuration {
 	/**
 	 * Method returns only one instantce of configuration class
 	 * 
-	 * @return
+	 * @return Only one instance of Configuration
 	 */
 	public static Configuration getConfig() {
 		if (Configuration.config == null) {

@@ -20,6 +20,8 @@ public class CrawlingOnlyStart extends Start{
 		try {
 			App.instagram();
 		} catch (Exception e) {
+			System.out.println("An error has occured, exiting ("+e.getMessage()+")");
+			return;
 		}
 		while(true) {
 			System.out.println("Loading users from " + Configuration.getConfig().getNamesPath());

@@ -178,7 +178,7 @@ public class InstagramCrawler extends Thread {
 	 * @param mDao       Dao object for saving all the pictures/videos of this
 	 *                   multi-post
 	 * @param profile    Profile of which the multi-post is part of
-	 * @return
+	 * @return True if all succesfully added, false otherwise
 	 */
 	private boolean addMultiPost(InstagramFeedItem feedResult, DaoMedium mDao, Profile profile) {
 		String url = "";
@@ -213,7 +213,7 @@ public class InstagramCrawler extends Thread {
 	}
 
 	/**
-	 * Puts crawling thread to sleep for 150 + <0,150) miliseconds
+	 * Puts crawling thread to sleep for 150 + \\<0,150) miliseconds
 	 */
 	private void waitAMoment() {
 		try {

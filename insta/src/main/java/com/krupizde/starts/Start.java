@@ -13,7 +13,7 @@ public abstract class Start {
 	public abstract void start();
 	/**
 	 * Method returns executing phrase for given starting method
-	 * @return
+	 * @return Executing phrase for given starting method
 	 */
 	public abstract String startParam();
 	/**

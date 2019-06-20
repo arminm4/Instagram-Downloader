@@ -195,7 +195,7 @@ public class DaoUserProfiles {
 	 * Method adds a profile to database
 	 * 
 	 * @param name   Name of the profile
-	 * @param idUser Which person is owner
+	 * @param idPerson Which person is owner
 	 * @throws SQLException
 	 */
 	private void addProfile(final String name, final int idPerson) throws SQLException {
@@ -334,7 +334,7 @@ public class DaoUserProfiles {
 	/**
 	 * Method sets flag is_valid to false in database to given profile
 	 * 
-	 * @param user User to set the flag
+	 * @param profile Profile to set the flag
 	 */
 	public void nonValid(final Profile profile) {
 		try {
