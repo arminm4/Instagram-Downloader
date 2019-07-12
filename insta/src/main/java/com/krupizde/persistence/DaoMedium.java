@@ -55,7 +55,7 @@ public class DaoMedium {
 			stm.setInt(1, mediType);
 			stm.setString(2, medium.getName());
 			stm.setDate(3, new Date(medium.getDateTimeAdded().getTime()));
-			stm.setInt(4, DaoUserProfiles.getDao().getProfileId(medium.getUser().getName()));
+			stm.setInt(4, DaoUserProfiles.getDao().getProfileId(medium.getProfile().getName()));
 			stm.setBoolean(5, false);
 			stm.setString(6, medium.getUrl());
 			stm.executeUpdate();
@@ -138,7 +138,7 @@ public class DaoMedium {
 	 * Method returns limit number of mediums from database that have not set
 	 * download time (were not downoaded yet).
 	 * 
-	 * @param limit  Limit of returned mediums
+	 * @param limit Limit of returned mediums
 	 * @return List of loaded mediums
 	 * @throws SQLException
 	 */
@@ -165,4 +165,5 @@ public class DaoMedium {
 		}
 		return temp;
 	}
+
 }

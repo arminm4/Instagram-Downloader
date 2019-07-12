@@ -19,10 +19,10 @@ public class Medium implements IDownloadItem {
 	private long sizeBytes;
 	private final Suffix suffix;
 	private final Date dateTimeAdded;
-	private final Profile user;
+	private final Profile profile;
 
 	public Medium(String name, String url, String destinationFolder, long sizeBytes, Suffix suffix, Date dateTimeAdded,
-			Profile user) {
+			Profile profile) {
 		super();
 		this.name = name;
 		this.url = url;
@@ -30,7 +30,7 @@ public class Medium implements IDownloadItem {
 		this.sizeBytes = sizeBytes;
 		this.suffix = suffix;
 		this.dateTimeAdded = dateTimeAdded;
-		this.user = user;
+		this.profile = profile;
 	}
 
 	public void setUrl(String url) {
@@ -61,14 +61,14 @@ public class Medium implements IDownloadItem {
 		return dateTimeAdded;
 	}
 
-	public Profile getUser() {
-		return user;
+	public Profile getProfile() {
+		return profile;
 	}
 
 	@Override
 	public String toString() {
 		return "Medium [name=" + name + ", url=" + url + ", destinationFolder=" + destinationFolder + ", sizeBytes="
-				+ sizeBytes + ", suffix=" + suffix + ", dateTimeAdded=" + dateTimeAdded + ", user=" + user + "]";
+				+ sizeBytes + ", suffix=" + suffix + ", dateTimeAdded=" + dateTimeAdded + ", user=" + profile + "]";
 	}
 
 	@Override

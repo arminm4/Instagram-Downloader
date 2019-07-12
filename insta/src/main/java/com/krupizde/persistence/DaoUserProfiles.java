@@ -194,7 +194,7 @@ public class DaoUserProfiles {
 	/**
 	 * Method adds a profile to database
 	 * 
-	 * @param name   Name of the profile
+	 * @param name     Name of the profile
 	 * @param idPerson Which person is owner
 	 * @throws SQLException
 	 */
@@ -314,7 +314,7 @@ public class DaoUserProfiles {
 	}
 
 	/**
-	 * Method returns database if of profile with given name
+	 * Method returns id of profile with given name from database
 	 * 
 	 * @param name Name of the profile you want to load id
 	 * @return Id of profile with given name
@@ -322,7 +322,7 @@ public class DaoUserProfiles {
 	 */
 	public int getProfileId(final String name) throws SQLException {
 		final PreparedStatement stm = SqliteDatabase.getConn()
-				.prepareStatement("select id_person from profile where name = ?");
+				.prepareStatement("select id_profile from profile where name = ?");
 		stm.setString(1, name);
 		final ResultSet set = stm.executeQuery();
 		while (set.next()) {
