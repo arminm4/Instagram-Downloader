@@ -296,7 +296,7 @@ public class DaoUserProfiles {
 	}
 
 	/**
-	 * Method returns database if of person with given name
+	 * Method returns database id of person with given name
 	 * 
 	 * @param name Name of the person you want to load id
 	 * @return Id of person with given name
