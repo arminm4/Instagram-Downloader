@@ -150,6 +150,14 @@ public class DaoUserProfiles {
 		stm.setString(2, p.getName());
 		stm.executeUpdate();
 	}
+	
+	public void setPriority(Profile p, int priority) throws SQLException {
+		PreparedStatement stm = SqliteDatabase.getConn()
+				.prepareStatement("update profile set download_priority = ? where name = ?");
+		stm.setInt(1, priority);
+		stm.setString(2, p.getName());
+		stm.executeUpdate();
+	}
 
 	/**
 	 * Method adds a person to database (not a profile)

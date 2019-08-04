@@ -13,7 +13,7 @@ import com.krupizde.downloader.Downloader;
 
 import java.sql.SQLException;
 import com.krupizde.persistence.DaoMedium;
-import com.krupizde.requsts.CustomGetRequest;
+import com.krupizde.requests.CustomGetRequest;
 
 /**
  * Class represents downloading of mediums from database. It is created as a
@@ -62,7 +62,7 @@ public class DownloadFromDatabase extends Thread {
 	/**
 	 * Method downloads given medium (calls method from Downloader). If the medium
 	 * is a video, url must be refreshed (instagram has time limited urls for video
-	 * posts).
+	 * posts). If video no longer exists, set api_deleted flag to true.
 	 * 
 	 * @param m Medium to download
 	 * @param d Downloader which is used to download
@@ -73,6 +73,11 @@ public class DownloadFromDatabase extends Thread {
 				System.out.println("Gotta keep them video url fresh");
 				InstagramGetMediaInfoResult res = App.instagram()
 						.sendRequest(new CustomGetRequest(Long.parseLong(m.getName())));
+				if ("fail".equals(res.getStatus().trim())) {
+					DaoMedium.getDao().setApiDeleted(m);
+					System.err.println("Error, invalid link, medium not found (probably deleted or banned)");
+					return;
+				}
 				m.setUrl(InstagramCrawler.extractMediaUrl(res.getItems().get(0)));
 			}
 			System.out.println("Downloading " + m.getSuffix());

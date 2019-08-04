@@ -145,7 +145,7 @@ public class DaoMedium {
 	public ArrayList<Medium> getNotDownloadedMediums(int limit) throws SQLException {
 		final ArrayList<Medium> temp = new ArrayList<Medium>();
 		final PreparedStatement stm = SqliteDatabase.getConn().prepareStatement(
-				"select disk_path, person.name, profile.name, medium.name, id_medium, link, short, date_time_added from medium join media_type on medium.id_medium_type = media_type.id_media_type join profile on profile.id_profile = medium.id_profile join person on person.id_person = profile.id_person where is_valid = true and date_time_downloaded is null limit ?");
+				"select disk_path, person.name, profile.name, medium.name, id_medium, link, short, date_time_added, api_deleted from medium join media_type on medium.id_medium_type = media_type.id_media_type join profile on profile.id_profile = medium.id_profile join person on person.id_person = profile.id_person where is_valid = true and api_deleted = false and date_time_downloaded is null order by person.download_priority asc limit ?");
 		stm.setInt(1, limit);
 		final ResultSet set = stm.executeQuery();
 		while (set.next()) {
@@ -164,6 +164,12 @@ public class DaoMedium {
 					Suffix.valueOf(set.getString(7).toUpperCase()), (java.util.Date) set.getDate(8), (Profile) null));
 		}
 		return temp;
+	}
+	
+	public void setApiDeleted(final Medium medium) throws SQLException {
+		final PreparedStatement stm = SqliteDatabase.getConn().prepareStatement("update medium set api_deleted = true where name = ?");
+		stm.setString(1, medium.getName());
+		stm.executeUpdate();
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.krupizde.requsts;
+package com.krupizde.requests;
 
 import org.brunocvcunha.instagram4j.requests.InstagramGetRequest;
 import org.brunocvcunha.instagram4j.requests.payload.InstagramGetMediaInfoResult;
