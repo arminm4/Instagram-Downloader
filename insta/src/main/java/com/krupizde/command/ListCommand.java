@@ -22,6 +22,7 @@ public class ListCommand extends Command {
 		ArrayList<Profile> profiles = null;
 		try {
 			profiles = (ArrayList<Profile>) DaoUserProfiles.getDao().getAllProfiles();
+					
 		} catch (SQLException e) {
 			System.err.println("Cannot list profiles");
 		}

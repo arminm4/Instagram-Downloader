@@ -27,6 +27,7 @@ public class InteractiveStart extends Start {
 			final String command = scan.nextLine();
 			com.execute(command);
 		}
+		scan.close();
 	}
 
 	@Override

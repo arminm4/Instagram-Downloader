@@ -51,15 +51,15 @@ public class DaoMedium {
 			}
 			final int mediType = this.addMediumType(medium.getSuffix());
 			final PreparedStatement stm = SqliteDatabase.getConn().prepareStatement(
-					"insert into medium(id_medium_type, name, date_time_added, id_profile, deleted, link)values(?,?,?,?,?,?)");
+					"insert into medium(id_medium_type, name, date_time_added, id_profile, link)values(?,?,?,?,?)");
 			stm.setInt(1, mediType);
 			stm.setString(2, medium.getName());
 			stm.setDate(3, new Date(medium.getDateTimeAdded().getTime()));
 			stm.setInt(4, DaoUserProfiles.getDao().getProfileId(medium.getProfile().getName()));
-			stm.setBoolean(5, false);
-			stm.setString(6, medium.getUrl());
+			stm.setString(5, medium.getUrl());
 			stm.executeUpdate();
 		} catch (SQLException ex) {
+			System.err.println("An error has occured at medium adding ("+ex.getMessage()+")");
 		}
 		return true;
 	}
@@ -145,7 +145,7 @@ public class DaoMedium {
 	public ArrayList<Medium> getNotDownloadedMediums(int limit) throws SQLException {
 		final ArrayList<Medium> temp = new ArrayList<Medium>();
 		final PreparedStatement stm = SqliteDatabase.getConn().prepareStatement(
-				"select disk_path, person.name, profile.name, medium.name, id_medium, link, short, date_time_added, api_deleted from medium join media_type on medium.id_medium_type = media_type.id_media_type join profile on profile.id_profile = medium.id_profile join person on person.id_person = profile.id_person where is_valid = true and api_deleted = false and date_time_downloaded is null order by person.download_priority asc limit ?");
+				"select disk_path, person.name, profile.name, medium.name, id_medium, link, short, date_time_added, api_deleted from medium join media_type on medium.id_medium_type = media_type.id_media_type join profile on profile.id_profile = medium.id_profile join person on person.id_person = profile.id_person where api_deleted = false and date_time_downloaded is null order by profile.download_priority asc limit ?");
 		stm.setInt(1, limit);
 		final ResultSet set = stm.executeQuery();
 		while (set.next()) {

@@ -26,6 +26,7 @@ public class CommandControl {
 		commands.add(new ExportCommand());
 		commands.add(new CheckCommand());
 		commands.add(new GetPrivatesCommand());
+		commands.add(new SetPriorityCommand());
 	}
 
 	/**

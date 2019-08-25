@@ -58,7 +58,7 @@ public class DiscreteStart extends Start {
 	@Override
 	public String description() {
 		return "Starts application in discrete mode -\n\t\t\t\t1) loads profile names from set file and inserts them into database\n"
-				+ "\t\t\t\t2) starts crawling profiles loaded from database and inserting their posts into database\n"
+				+ "\t\t\t\t2) starts crawling profiles loaded from database and inserting their posts into database\n\n"
 				+ "\t\t\t\t3) starts downloading mediums from database (video links have to be refreshed)";
 	}
 

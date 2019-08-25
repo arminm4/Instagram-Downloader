@@ -116,7 +116,7 @@ public class DaoUserProfiles {
 	public List<Profile> getPrivateProfiles() throws SQLException {
 		final ArrayList<Profile> temp = new ArrayList<Profile>();
 		final PreparedStatement stm = SqliteDatabase.getConn().prepareStatement(
-				"select profile.name, person.name, disk_path, id_profile, is_valid, is_private, full_finished from profile join person on person.id_person = profile.id_person where is_valid = true and is_private = true");
+				"select profile.name, person.name, disk_path, id_profile, is_valid, is_private, full_finished, download_priority from profile join person on person.id_person = profile.id_person where is_valid = true and is_private = true");
 		final ResultSet set = stm.executeQuery();
 		while (set.next()) {
 			final PreparedStatement stm2 = SqliteDatabase.getConn().prepareStatement(
@@ -131,7 +131,7 @@ public class DaoUserProfiles {
 					.valueOf(set.getString(1).replace("\\", File.separator).replace("/", File.separator))
 					+ ((pocet == 1) ? "" : (String.valueOf(File.separator) + set.getString(3)));
 			temp.add(new Profile(set.getInt("id_profile"), set.getString(1), path, set.getBoolean("is_valid"),
-					set.getBoolean("is_private"), set.getBoolean("full_finished")));
+					set.getBoolean("is_private"), set.getBoolean("full_finished"), set.getInt("download_priority")));
 		}
 		return temp;
 	}
@@ -150,13 +150,20 @@ public class DaoUserProfiles {
 		stm.setString(2, p.getName());
 		stm.executeUpdate();
 	}
-	
-	public void setPriority(Profile p, int priority) throws SQLException {
+	/**
+	 * 
+	 * @param name
+	 * @param priority
+	 * @return
+	 * @throws SQLException
+	 */
+	public int setPriority(String name, int priority) throws SQLException {
 		PreparedStatement stm = SqliteDatabase.getConn()
-				.prepareStatement("update profile set download_priority = ? where name = ?");
+				.prepareStatement("update profile set download_priority = ? where name like ?");
 		stm.setInt(1, priority);
-		stm.setString(2, p.getName());
-		stm.executeUpdate();
+		System.out.println(name);
+		stm.setString(2, "%" + name + "%");
+		return stm.executeUpdate();
 	}
 
 	/**
@@ -225,7 +232,7 @@ public class DaoUserProfiles {
 	public ArrayList<Profile> getNonValids() throws SQLException {
 		final ArrayList<Profile> temp = new ArrayList<Profile>();
 		final PreparedStatement stm = SqliteDatabase.getConn().prepareStatement(
-				"select profile.name, person.name, disk_path, id_profile, is_valid, is_private, full_finished from profile join person on person.id_person = profile.id_person where is_valid = false");
+				"select profile.name, person.name, disk_path, id_profile, is_valid, is_private, full_finished, download_priority from profile join person on person.id_person = profile.id_person where is_valid = false");
 		final ResultSet set = stm.executeQuery();
 		while (set.next()) {
 			final PreparedStatement stm2 = SqliteDatabase.getConn().prepareStatement(
@@ -240,7 +247,7 @@ public class DaoUserProfiles {
 					.valueOf(set.getString(1).replace("\\", File.separator).replace("/", File.separator))
 					+ ((pocet == 1) ? "" : (String.valueOf(File.separator) + set.getString(3)));
 			temp.add(new Profile(set.getInt("id_profile"), set.getString(1), path, set.getBoolean("is_valid"),
-					set.getBoolean("is_private"), set.getBoolean("full_finished")));
+					set.getBoolean("is_private"), set.getBoolean("full_finished"), set.getInt("download_priority")));
 		}
 		return temp;
 	}
@@ -254,7 +261,7 @@ public class DaoUserProfiles {
 	public ArrayList<Profile> getValidProfiles() throws SQLException {
 		final ArrayList<Profile> temp = new ArrayList<Profile>();
 		final PreparedStatement stm = SqliteDatabase.getConn().prepareStatement(
-				"select profile.name, person.name, disk_path, id_profile, is_valid, is_private, full_finished from profile join person on person.id_person = profile.id_person where is_valid = true");
+				"select profile.name, person.name, disk_path, id_profile, is_valid, is_private, full_finished, download_priority from profile join person on person.id_person = profile.id_person where is_valid = true");
 		final ResultSet set = stm.executeQuery();
 		while (set.next()) {
 			final PreparedStatement stm2 = SqliteDatabase.getConn().prepareStatement(
@@ -269,7 +276,7 @@ public class DaoUserProfiles {
 					.valueOf(set.getString(1).replace("\\", File.separator).replace("/", File.separator))
 					+ ((pocet == 1) ? "" : (String.valueOf(File.separator) + set.getString(3)));
 			temp.add(new Profile(set.getInt("id_profile"), set.getString(1), path, set.getBoolean("is_valid"),
-					set.getBoolean("is_private"), set.getBoolean("full_finished")));
+					set.getBoolean("is_private"), set.getBoolean("full_finished"), set.getInt("download_priority")));
 		}
 		return temp;
 	}
@@ -283,7 +290,7 @@ public class DaoUserProfiles {
 	public ArrayList<Profile> getAllProfiles() throws SQLException {
 		final ArrayList<Profile> temp = new ArrayList<Profile>();
 		final PreparedStatement stm = SqliteDatabase.getConn().prepareStatement(
-				"select profile.name, person.name, disk_path, id_profile, is_valid, is_private, full_finished from profile join person on person.id_person = profile.id_person");
+				"select profile.name, person.name, disk_path, id_profile, is_valid, is_private, full_finished, download_priority from profile join person on person.id_person = profile.id_person");
 		final ResultSet set = stm.executeQuery();
 		while (set.next()) {
 			final PreparedStatement stm2 = SqliteDatabase.getConn().prepareStatement(
@@ -298,7 +305,7 @@ public class DaoUserProfiles {
 					.valueOf(set.getString(1).replace("\\", File.separator).replace("/", File.separator))
 					+ ((pocet == 1) ? "" : (String.valueOf(File.separator) + set.getString(3)));
 			temp.add(new Profile(set.getInt("id_profile"), set.getString(1), path, set.getBoolean("is_valid"),
-					set.getBoolean("is_private"), set.getBoolean("full_finished")));
+					set.getBoolean("is_private"), set.getBoolean("full_finished"), set.getInt("download_priority")));
 		}
 		return temp;
 	}
@@ -369,5 +376,34 @@ public class DaoUserProfiles {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	/**
+	 * 
+	 * @param namePattern
+	 * @return
+	 * @throws SQLException
+	 */
+	public ArrayList<Profile> getProfilesByName(String namePattern) throws SQLException {
+		final ArrayList<Profile> temp = new ArrayList<Profile>();
+		final PreparedStatement stm = SqliteDatabase.getConn().prepareStatement(
+				"select profile.name, person.name, disk_path, id_profile, is_valid, is_private, full_finished, download_priority from profile join person on person.id_person = profile.id_person where profile.name like ?");
+		stm.setString(1, "%" + namePattern + "%");
+		final ResultSet set = stm.executeQuery();
+		while (set.next()) {
+			final PreparedStatement stm2 = SqliteDatabase.getConn().prepareStatement(
+					"select person.name, count(person.id_person) from profile join person on profile.id_person = person.id_person where person.name = ? group by person.name");
+			stm2.setString(1, set.getString(2));
+			final ResultSet set2 = stm2.executeQuery();
+			int pocet = 1;
+			if (set2.next()) {
+				pocet = set2.getInt(2);
+			}
+			final String path = String
+					.valueOf(set.getString(1).replace("\\", File.separator).replace("/", File.separator))
+					+ ((pocet == 1) ? "" : (String.valueOf(File.separator) + set.getString(3)));
+			temp.add(new Profile(set.getInt("id_profile"), set.getString(1), path, set.getBoolean("is_valid"),
+					set.getBoolean("is_private"), set.getBoolean("full_finished"), set.getInt("download_priority")));
+		}
+		return temp;
 	}
 }

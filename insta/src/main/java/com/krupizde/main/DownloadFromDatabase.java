@@ -84,9 +84,15 @@ public class DownloadFromDatabase extends Thread {
 			d.downloadMedium((IDownloadItem) m, (SpeedObject) null);
 			DaoMedium.getDao().setDownTime(m);
 		} catch (IllegalAccessException e2) {
-			System.err.println("An error has occured (" + e2.getMessage() + ")");
-		} catch (Exception e) {
-			System.err.println("An error has occured (" + e.getMessage() + ")");
+			System.err.println("An error has occured (" + (e2.getMessage() == null ? " Unknown error " : e2.getMessage()) + ")");
+		} catch (Throwable e) {
+			try {
+				DaoMedium.getDao().setApiDeleted(m);
+			} catch (SQLException e1) {
+				System.err.println("An error has occured (" + (e1.getMessage() == null ? " Unknown error " : e1.getMessage()) + ")");
+			}
+			System.err.println("Error, invalid link, medium not found (probably deleted or banned)");
+			System.err.println("An error has occured (" + (e.getMessage() == null ? " Unknown error " : e.getMessage()) + ")");
 		}
 	}
 }

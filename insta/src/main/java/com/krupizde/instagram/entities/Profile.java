@@ -6,7 +6,7 @@ package com.krupizde.instagram.entities;
  * @author Zdeněk Krupička (radamanak@gmail.com)
  *
  */
-public class Profile {
+public class Profile implements Comparable<Profile> {
 
 	private int id;
 	private String name;
@@ -14,9 +14,10 @@ public class Profile {
 	private boolean isValid;
 	private boolean isPrivate;
 	private boolean fullFinished;
+	private int priority;
 
 	public Profile(int id, String name, String destinationFolder, boolean isValid, boolean isPrivate,
-			boolean fullFinished) {
+			boolean fullFinished, int priority) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -24,6 +25,7 @@ public class Profile {
 		this.isValid = isValid;
 		this.isPrivate = isPrivate;
 		this.fullFinished = fullFinished;
+		this.priority = priority;
 	}
 
 	public int getId() {
@@ -74,10 +76,19 @@ public class Profile {
 		this.fullFinished = fullFinished;
 	}
 
+	public int getPriority() {
+		return this.priority;
+	}
+
 	@Override
 	public String toString() {
 		return "Profile [id=" + id + ", name=" + name + ", destinationFolder=" + destinationFolder + ", isValid="
-				+ isValid + ", isPrivate=" + isPrivate + ", fullFinished=" + fullFinished + "]";
+				+ isValid + ", isPrivate=" + isPrivate + ", fullFinished=" + fullFinished + ", priority=" + priority
+				+ "]";
+	}
+
+	public int compareTo(Profile other) {
+		return (this.priority - other.priority == 0) ? this.name.compareTo(other.name) : this.priority - other.priority;
 	}
 
 }
