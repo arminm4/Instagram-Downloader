@@ -217,7 +217,7 @@ public class InstagramCrawler extends Thread {
 	 */
 	private void waitAMoment() {
 		try {
-			Thread.sleep(150 + new Random().nextInt(150));
+			Thread.sleep(350 + new Random().nextInt(350));
 		} catch (InterruptedException e) {
 		}
 	}
